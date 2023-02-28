@@ -1,0 +1,39 @@
+Task 4: Image to Pencil Sketch with Python
+[ ]
+from google.colab import drive
+drive.mount('/content/drive')
+Drive already mounted at /content/drive; to attempt to forcibly remount, call drive.mount("/content/drive", force_remount=True).
+[ ]
+import pandas as pd
+import numpy as pd
+import cv2 as cv
+from google.colab.patches import cv2_imshow
+from skimage import io
+from PIL import Image
+import matplotlib.pylab as plt
+[ ]
+image = io.imread("/content/drive/MyDrive/Horse.jpeg")
+cv2_imshow(image)
+
+[ ]
+grey_filter = cv.cvtColor(image, cv.COLOR_BGR2GRAY)
+cv2_imshow(grey_filter)
+
+[ ]
+invert = cv.bitwise_not(grey_filter)
+cv2_imshow(invert)
+
+[ ]
+blur = cv.GaussianBlur(invert, (21,21),0)
+cv2_imshow(blur)
+
+[ ]
+invertedblur = cv.bitwise_not(blur)
+cv2_imshow(invertedblur)
+
+final Output
+[ ]
+sketch_filter=cv.divide (grey_filter, invertedblur, scale=255.0)
+cv2_imshow(sketch_filter)
+cv.imwrite("abc.jpg", sketch_filter)
+
